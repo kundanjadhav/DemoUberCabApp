@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvVehicleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="vehicle name "
+        android:layout_marginBottom="5dp"
+        android:textSize="20dp"
+        />
+    <TextView
+        android:id="@+id/tvRideDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ride Duration "
+        android:layout_marginBottom="5dp"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/tvRideDistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ride Distance "
+        android:layout_marginBottom="5dp"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/tvRideEstimates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ride Estimate "
+        android:layout_marginBottom="5dp"
+        android:textSize="20dp"
+        />
+
+
+</LinearLayout>
