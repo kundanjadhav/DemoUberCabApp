@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Snackbar snackbar;
 
 
-    public class FetchCountryList extends AsyncTask<Void, String, String> {
+    public class FetchVehicleList extends AsyncTask<Void, String, String> {
         private boolean isShowingProgressBar;
         private StringBuilder stringBuilder;
         private Utils utils;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.apiListAdapter.notifyDataSetChanged();
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
-                        FetchCountryList.this.utils.dismissProgressBar(FetchCountryList.this.isShowingProgressBar);
+                        FetchVehicleList.this.utils.dismissProgressBar(FetchVehicleList.this.isShowingProgressBar);
                     }
                 });
 
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             MainActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
-                    FetchCountryList.this.utils = new Utils();
-                    FetchCountryList.this.isShowingProgressBar = FetchCountryList.this.utils.showProgress("Loading", MainActivity.this);
+                    FetchVehicleList.this.utils = new Utils();
+                    FetchVehicleList.this.isShowingProgressBar = FetchVehicleList.this.utils.showProgress("Loading", MainActivity.this);
                 }
             });
             super.onPreExecute();
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         this.countryListUrl = "https://api.uber.com/v1/estimates/price?start_latitude=18.5018322&start_longitude=73.8635912&end_latitude=18.4575324&end_longitude=73.8677464&server_token=2RJx619BeJ1gj1HlHjiKCt-ntL5ftyk6qh5C7gUB";
         this.lv_dataList = (ListView) findViewById(R.id.lv_dataList);
         if (new UIHelper().isNetworkAvailable(MainActivity.this.getApplicationContext())) {
-            new FetchCountryList().execute(new Void[0]);
+            new FetchVehicleList().execute(new Void[0]);
         } else {
             snackbar = Snackbar
                     .make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_INDEFINITE)
