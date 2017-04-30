@@ -1,7 +1,10 @@
 package com.example.kundan.demoubercabapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private APIListAdapter apiListAdapter;
     private String countryListUrl;
     private ListView lv_dataList;
+    private View.OnClickListener mOnClickListener;
+    private Snackbar snackbar;
 
 
     public class FetchCountryList extends AsyncTask<Void, String, String> {
@@ -31,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         private Utils utils;
 
         protected String doInBackground(Void... params) {
-            if (new UIHelper().isNetworkAvailable(MainActivity.this.getApplicationContext())) {
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new URL(MainActivity.this.countryListUrl).openConnection().getInputStream()));
                     this.stringBuilder = new StringBuilder();
@@ -46,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e(MainActivity.TAG_ERR, e.getLocalizedMessage());
                 }
-            }
+
+
             return this.stringBuilder.toString();
+
         }
 
         protected void onPostExecute(String s) {
@@ -62,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject resObj = new JSONObject(s);
                 JSONArray jArray = resObj.getJSONArray("prices");
-                                final ArrayList<JSONObject> arrayList = new ArrayList();
+                final ArrayList<JSONObject> arrayList = new ArrayList();
 
                 for (int i = 0; i < jArray.length(); i++) {
                     arrayList.add(jArray.getJSONObject(i));
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.apiListAdapter.notifyDataSetChanged();
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
-                        MainActivity.FetchCountryList.this.utils.dismissProgressBar(MainActivity.FetchCountryList.this.isShowingProgressBar);
+                        FetchCountryList.this.utils.dismissProgressBar(FetchCountryList.this.isShowingProgressBar);
                     }
                 });
 
@@ -85,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             MainActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
-                    MainActivity.FetchCountryList.this.utils = new Utils();
-//                    MainActivity.FetchCountryList.this.isShowingProgressBar = MainActivity.FetchCountryList.this.utils.showProgress("Loading", MainActivity.this);
+                    FetchCountryList.this.utils = new Utils();
+                    FetchCountryList.this.isShowingProgressBar = FetchCountryList.this.utils.showProgress("Loading", MainActivity.this);
                 }
             });
             super.onPreExecute();
@@ -96,9 +102,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView((int) R.layout.activity_main);
+
+        //// added location coordinates for start address : "Swargate,Pune" , End address : "Katraj,Pune"
         this.countryListUrl = "https://api.uber.com/v1/estimates/price?start_latitude=18.5018322&start_longitude=73.8635912&end_latitude=18.4575324&end_longitude=73.8677464&server_token=2RJx619BeJ1gj1HlHjiKCt-ntL5ftyk6qh5C7gUB";
         this.lv_dataList = (ListView) findViewById(R.id.lv_dataList);
-        new FetchCountryList().execute(new Void[0]);
+        if (new UIHelper().isNetworkAvailable(MainActivity.this.getApplicationContext())) {
+            new FetchCountryList().execute(new Void[0]);
+        } else {
+            snackbar = Snackbar
+                    .make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (new UIHelper().isNetworkAvailable(MainActivity.this.getApplicationContext())) {
+                                snackbar.dismiss();
+                            } else {
+                                snackbar.show();
+                            }
+
+                        }
+                    });
+            snackbar.setActionTextColor(Color.RED);
+            snackbar.show();
+        }
+
     }
 
 

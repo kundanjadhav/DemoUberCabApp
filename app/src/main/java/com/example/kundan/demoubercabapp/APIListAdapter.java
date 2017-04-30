@@ -2,6 +2,7 @@ package com.example.kundan.demoubercabapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -39,9 +40,19 @@ public class APIListAdapter extends BaseAdapter {
         TextView tvRideEstimate = (TextView) listViewItem.findViewById(R.id.tvRideEstimates);
         try {
                 tvVehicleName.setText(getItem(position).getString("localized_display_name"));
-            tvRideDuration.setText(getItem(position).getString("duration"));
-            tvRideDistance.setText(getItem(position).getString("distance"));
-            tvRideEstimate.setText(getItem(position).getString("estimate"));
+           // tvRideDuration.setText(getItem(position).getString("duration"));
+           tvRideDistance.setText("Ride Distance : " + getItem(position).getString("distance") + " mile");
+            tvRideEstimate.setText("Ride Estimate : " + getItem(position).getString("estimate"));
+
+
+//            Double distance = getItem(position).getDouble("distance");
+//            Double localizedDistance = distance/1000;
+//            tvRideDistance.setText((localizedDistance).toString() + " km");
+
+            Double duration = getItem(position).getDouble("duration");
+            Double localizedDuration = duration/60;
+            tvRideDuration.setText("Ride Duration : "+ (localizedDuration).toString() + " min");
+
 
 
         } catch (JSONException e) {

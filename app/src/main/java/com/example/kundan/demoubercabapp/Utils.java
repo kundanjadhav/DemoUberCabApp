@@ -12,6 +12,7 @@ public class Utils {
         this.progressDialog.setProgressStyle(0);
         this.progressDialog.setMessage(message);
         this.progressDialog.setCancelable(false);
+        this.progressDialog.dismiss();
         this.progressDialog.show();
         this.isShowingProgressBar = true;
         return this.isShowingProgressBar;

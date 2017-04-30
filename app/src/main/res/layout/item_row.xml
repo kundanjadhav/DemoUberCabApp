@@ -7,31 +7,32 @@
         android:id="@+id/tvVehicleName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="vehicle name "
+        android:text="vehicle name"
         android:layout_marginBottom="5dp"
-        android:textSize="20dp"
+        android:textSize="40dp"
         />
     <TextView
         android:id="@+id/tvRideDuration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ride Duration "
+        android:text="Ride Duration"
         android:layout_marginBottom="5dp"
         android:textSize="20dp"/>
     <TextView
         android:id="@+id/tvRideDistance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ride Distance "
+        android:text="Ride Distance"
         android:layout_marginBottom="5dp"
         android:textSize="20dp"/>
     <TextView
         android:id="@+id/tvRideEstimates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ride Estimate "
+        android:text="Ride Estimate"
         android:layout_marginBottom="5dp"
         android:textSize="20dp"
+        android:textColor="@android:color/holo_green_dark"
         />
 
 
