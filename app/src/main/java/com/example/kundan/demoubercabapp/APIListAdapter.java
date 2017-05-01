@@ -44,11 +44,6 @@ public class APIListAdapter extends BaseAdapter {
            tvRideDistance.setText("Ride Distance : " + getItem(position).getString("distance") + " mile");
             tvRideEstimate.setText("Ride Estimate : " + getItem(position).getString("estimate"));
 
-
-//            Double distance = getItem(position).getDouble("distance");
-//            Double localizedDistance = distance/1000;
-//            tvRideDistance.setText((localizedDistance).toString() + " km");
-
             Double duration = getItem(position).getDouble("duration");
             Double localizedDuration = duration/60;
             tvRideDuration.setText("Ride Duration : "+ (localizedDuration).toString() + " min");
